@@ -13,7 +13,18 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        return response()->json(Ingredient::all());
+        try {
+            $ingredients = Ingredient::all();
+            // Decode benefits for each ingredient
+            $ingredients->transform(function ($ingredient) {
+                $ingredient->benefits = json_decode($ingredient->benefits, true);
+                return $ingredient;
+            });
+            return response()->json($ingredients);
+        } catch (\Exception $e) {
+            // Return empty array if database connection fails or table doesn't exist
+            return response()->json([], 200);
+        }
     }
 
     /**

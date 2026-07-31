@@ -27,6 +27,11 @@ fi
 # Set LOG_CHANNEL to stderr for Docker environments
 sed -i 's/^LOG_CHANNEL=.*/LOG_CHANNEL=stderr/' .env
 
+# Create SQLite database directory and file if they don't exist
+mkdir -p database
+touch database/database.sqlite
+chmod 664 database/database.sqlite
+
 # Generate APP_KEY if not set
 if ! grep -q "^APP_KEY=base64:" .env; then
     php artisan key:generate --force
