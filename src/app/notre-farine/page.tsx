@@ -21,7 +21,7 @@ export default function ProductPage() {
         setProducts(data);
         setLoading(false);
       } catch (err) {
-        setError("Impossible de charger les produits. Veuillez vérifier votre connexion ou réessayer.");
+        setError("Impossible de charger les produits après plusieurs tentatives. Le serveur est peut-être en maintenance. Veuillez réessayer dans quelques instants.");
         setLoading(false);
       }
     };
@@ -33,7 +33,7 @@ export default function ProductPage() {
   const formats = products.filter(p => p.is_active);
 
   if (loading) {
-    return <LoadingSpinner message="Chargement de nos produits..." />;
+    return <LoadingSpinner message="Démarrage du serveur en cours, veuillez patienter quelques secondes..." />;
   }
 
   if (error) {
@@ -42,10 +42,10 @@ export default function ProductPage() {
         <div className="text-center max-w-md mx-auto p-6">
           <p className="text-red-600 text-lg mb-4">{error}</p>
           <p className="text-gray-600 text-sm mb-6">
-            Le serveur peut prendre quelques secondes pour démarrer. Veuillez réessayer.
+            Le système a automatiquement réessayé 3 fois. Si le problème persiste, le serveur est peut-être en maintenance.
           </p>
           <Button onClick={() => window.location.reload()} className="mt-4">
-            Réessayer
+            Réessayer manuellement
           </Button>
         </div>
       </div>

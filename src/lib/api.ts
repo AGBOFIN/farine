@@ -4,7 +4,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://farine-backend.
 // Timeout configuration for API calls (Render can take up to 60s to wake up)
 const API_TIMEOUT = 60000; // 60 seconds
 const MAX_RETRIES = 3;
-const RETRY_DELAY = 2000; // 2 seconds between retries
+const RETRY_DELAY = 3000; // 3 seconds between retries
 
 // Helper function to add timeout to fetch
 const fetchWithTimeout = async (url: string, options: RequestInit = {}, timeout = API_TIMEOUT): Promise<Response> => {

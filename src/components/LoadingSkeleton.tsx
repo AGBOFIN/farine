@@ -31,12 +31,12 @@ export function IngredientSkeleton() {
   );
 }
 
-export function LoadingSpinner({ message = "Chargement..." }: { message?: string }) {
+export function LoadingSpinner({ message = "Démarrage du serveur en cours, veuillez patienter quelques secondes..." }: { message?: string }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
       <Loader2 className="h-12 w-12 animate-spin text-[#EAB308]" />
       <p className="text-gray-600 text-lg">{message}</p>
-      <p className="text-gray-400 text-sm">Le serveur peut prendre quelques secondes pour démarrer</p>
+      <p className="text-gray-400 text-sm">Le serveur peut prendre jusqu'à 50 secondes pour se réveiller</p>
     </div>
   );
 }

@@ -19,4 +19,6 @@ Create a `.env.local` file in the root directory with the appropriate URL for yo
 The API client (src/lib/api.ts) includes:
 - Automatic retry mechanism (3 attempts with exponential backoff)
 - 60-second timeout for requests (to accommodate Render wake-up time)
+- 3-second initial delay between retries (doubles with each attempt)
 - Fallback to production URL if environment variable is not set
+- Comprehensive loading states with server startup messages
