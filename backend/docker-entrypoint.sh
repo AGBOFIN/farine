@@ -19,5 +19,9 @@ fi
 php artisan migrate --force
 echo "Database migrations completed"
 
+# Run database seeders to create admin account
+php artisan db:seed --force
+echo "Database seeders completed"
+
 # Start Apache
 exec apache2-foreground
