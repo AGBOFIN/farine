@@ -72,8 +72,14 @@ export default function IngredientsPage() {
       {/* Ingredients Grid */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {ingredients.map((ingredient, index) => (
+          {ingredients.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-gray-600 text-lg">Aucun ingrédient disponible pour le moment.</p>
+              <p className="text-gray-400 text-sm mt-2">Les données sont en cours de chargement...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {ingredients.map((ingredient, index) => (
               <motion.div
                 key={ingredient.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -121,7 +127,8 @@ export default function IngredientsPage() {
                 </Card>
               </motion.div>
             ))}
-          </div>
+            </div>
+          )}
         </div>
       </section>
 
