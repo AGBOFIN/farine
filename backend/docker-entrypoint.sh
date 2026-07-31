@@ -23,5 +23,10 @@ echo "Database migrations completed"
 php artisan db:seed --force
 echo "Database seeders completed"
 
+# Clear configuration and route caches
+php artisan config:clear
+php artisan route:clear
+echo "Caches cleared"
+
 # Start Apache
 exec apache2-foreground
