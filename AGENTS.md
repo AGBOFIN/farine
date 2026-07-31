@@ -14,6 +14,8 @@ The frontend requires the following environment variable:
 
 Create a `.env.local` file in the root directory with the appropriate URL for your environment.
 
+**IMPORTANT**: On Vercel, you must set the `NEXT_PUBLIC_API_URL` environment variable in your project settings to point to the production backend URL.
+
 # API Configuration
 
 The API client (src/lib/api.ts) includes:
@@ -22,3 +24,12 @@ The API client (src/lib/api.ts) includes:
 - 3-second initial delay between retries (doubles with each attempt)
 - Fallback to production URL if environment variable is not set
 - Comprehensive loading states with server startup messages
+
+# Backend Configuration
+
+The backend (Laravel) includes:
+- CORS configured to allow all origins (`allowed_origins => ['*']`)
+- SQLite database by default with automatic creation in docker-entrypoint.sh
+- Error handling in API controllers to return empty arrays instead of 500 errors
+- Automatic database migrations and seeding on container startup
+- Graceful degradation when database is not ready
