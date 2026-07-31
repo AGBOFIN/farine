@@ -1,0 +1,42 @@
+services:
+  # Laravel Backend Service
+  - type: web
+    name: farine-backend
+    env: docker
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    plan: free
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://farine-backend.onrender.com
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: ${MYSQL_HOST}
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        value: ${MYSQL_DATABASE}
+      - key: DB_USERNAME
+        value: ${MYSQL_USERNAME}
+      - key: DB_PASSWORD
+        value: ${MYSQL_PASSWORD}
+      - key: CACHE_DRIVER
+        value: file
+      - key: SESSION_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+
+databases:
+  # MySQL Database
+  - name: farine-db
+    databaseName: farine
+    user: farine_user
+    plan: free
