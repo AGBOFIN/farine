@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ingredientsApi, Ingredient } from "@/lib/api";
-import { Check, Leaf, Loader2 } from "lucide-react";
+import { Check, Leaf } from "lucide-react";
 import { useEffect, useState } from "react";
+import { LoadingSpinner, IngredientSkeleton } from "@/components/LoadingSkeleton";
 
 export default function IngredientsPage() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
@@ -19,7 +20,7 @@ export default function IngredientsPage() {
         setIngredients(data);
         setLoading(false);
       } catch (err) {
-        setError("Failed to load ingredients");
+        setError("Impossible de charger les ingrédients. Veuillez vérifier votre connexion ou réessayer.");
         setLoading(false);
       }
     };
@@ -28,18 +29,17 @@ export default function IngredientsPage() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-[#EAB308]" />
-      </div>
-    );
+    return <LoadingSpinner message="Chargement de nos ingrédients..." />;
   }
 
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <p className="text-red-600">{error}</p>
+        <div className="text-center max-w-md mx-auto p-6">
+          <p className="text-red-600 text-lg mb-4">{error}</p>
+          <p className="text-gray-600 text-sm mb-6">
+            Le serveur peut prendre quelques secondes pour démarrer. Veuillez réessayer.
+          </p>
           <Button onClick={() => window.location.reload()} className="mt-4">
             Réessayer
           </Button>

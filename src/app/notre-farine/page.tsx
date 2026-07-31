@@ -5,8 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { generateWhatsAppLink, whatsappMessages } from "@/lib/mock-data";
 import { productsApi, Product } from "@/lib/api";
-import { MessageCircle, Package, Check, ArrowRight, Loader2 } from "lucide-react";
+import { MessageCircle, Package, Check, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { LoadingSpinner, ProductSkeleton } from "@/components/LoadingSkeleton";
 
 export default function ProductPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -20,7 +21,7 @@ export default function ProductPage() {
         setProducts(data);
         setLoading(false);
       } catch (err) {
-        setError("Failed to load products");
+        setError("Impossible de charger les produits. Veuillez vérifier votre connexion ou réessayer.");
         setLoading(false);
       }
     };
@@ -32,18 +33,17 @@ export default function ProductPage() {
   const formats = products.filter(p => p.is_active);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-[#EAB308]" />
-      </div>
-    );
+    return <LoadingSpinner message="Chargement de nos produits..." />;
   }
 
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <p className="text-red-600">{error}</p>
+        <div className="text-center max-w-md mx-auto p-6">
+          <p className="text-red-600 text-lg mb-4">{error}</p>
+          <p className="text-gray-600 text-sm mb-6">
+            Le serveur peut prendre quelques secondes pour démarrer. Veuillez réessayer.
+          </p>
           <Button onClick={() => window.location.reload()} className="mt-4">
             Réessayer
           </Button>
