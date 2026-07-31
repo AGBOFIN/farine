@@ -3,6 +3,17 @@
 # Set working directory
 cd /var/www/html
 
+# Create storage framework directories
+mkdir -p storage/framework/cache/data \
+         storage/framework/sessions \
+         storage/framework/views \
+         storage/app/public \
+         bootstrap/cache
+
+# Set permissions
+chmod -R 777 storage bootstrap/cache
+chown -R www-data:www-data storage bootstrap/cache
+
 # Copy .env.example to .env if .env doesn't exist
 if [ ! -f .env ]; then
     cp .env.example .env
@@ -23,9 +34,10 @@ echo "Database migrations completed"
 php artisan db:seed --force
 echo "Database seeders completed"
 
-# Clear configuration and route caches
+# Clear configuration, route, and view caches
 php artisan config:clear
 php artisan route:clear
+php artisan view:clear
 echo "Caches cleared"
 
 # Start Apache
