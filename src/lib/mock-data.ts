@@ -138,12 +138,12 @@ export const mockSiteContent: SiteContent = {
     },
   ],
   contact: {
-    phone: "+228 90 00 00 00",
-    whatsapp: "+22890000000",
-    tiktok: "https://www.tiktok.com/@farinedelacapitale",
+    phone: "+228 98954986",
+    whatsapp: "22898954986",
+    tiktok: "https://www.tiktok.com/@laety340?_r=1&_t=ZN-98T9wPRmyTG",
     address: "Lomé, Togo",
     hours: "Lundi - Samedi: 8h00 - 18h00",
-    email: "contact@farinedelacapitale.tg",
+    email: "farinedelacapitale@gmail.com",
   },
 };
 

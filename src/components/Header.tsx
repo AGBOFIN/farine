@@ -29,9 +29,11 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EAB308]">
-              <span className="text-lg font-bold text-white">FC</span>
-            </div>
+            <img
+              src="/logo.png"
+              alt="Farine De La Capitale"
+              className="h-12 w-auto object-contain"
+            />
             <span className="hidden font-bold text-lg sm:inline-block">
               Farine De La Capitale
             </span>

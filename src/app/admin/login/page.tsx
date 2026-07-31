@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -41,9 +42,13 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-50 to-white p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#EAB308]">
-            <span className="text-2xl font-bold text-white">FC</span>
-          </div>
+          <Link href="/" className="mx-auto mb-4 inline-block">
+            <img
+              src="/logo.png"
+              alt="Farine De La Capitale"
+              className="h-20 w-auto object-contain"
+            />
+          </Link>
           <CardTitle className="text-2xl">Administration</CardTitle>
           <p className="text-sm text-gray-600">
             Connectez-vous pour gérer le contenu

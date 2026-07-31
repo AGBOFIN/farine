@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -57,12 +58,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:w-64 lg:bg-white lg:border-r">
         <div className="flex h-full flex-col">
           {/* Logo */}
-          <div className="flex h-16 items-center border-b px-6">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EAB308]">
-              <span className="text-lg font-bold text-white">FC</span>
-            </div>
+          <Link href="/" className="flex h-16 items-center border-b px-6">
+            <img
+              src="/logo.png"
+              alt="Farine De La Capitale"
+              className="h-12 w-auto object-contain"
+            />
             <span className="ml-3 font-semibold">Admin</span>
-          </div>
+          </Link>
 
           {/* Navigation */}
           <nav className="flex-1 space-y-1 px-3 py-4">
@@ -94,12 +97,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Mobile Header */}
       <div className="lg:hidden flex items-center justify-between border-b bg-white px-4 py-3">
-        <div className="flex items-center space-x-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EAB308]">
-            <span className="text-sm font-bold text-white">FC</span>
-          </div>
+        <Link href="/" className="flex items-center space-x-2">
+          <img
+            src="/logo.png"
+            alt="Farine De La Capitale"
+            className="h-10 w-auto object-contain"
+          />
           <span className="font-semibold">Admin</span>
-        </div>
+        </Link>
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">

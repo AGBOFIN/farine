@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, MessageCircle, Clock, MapPin, Mail } from "lucide-react";
 import { mockSiteContent, generateWhatsAppLink, whatsappMessages } from "@/lib/mock-data";
 
@@ -11,14 +12,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EAB308]">
-                <span className="text-lg font-bold text-white">FC</span>
-              </div>
+            <Link href="/" className="flex items-center space-x-2">
+              <img
+                src="/logo.png"
+                alt="Farine De La Capitale"
+                className="h-12 w-auto object-contain"
+              />
               <span className="font-bold text-lg">
                 Farine De La Capitale
               </span>
-            </div>
+            </Link>
             <p className="text-sm text-gray-600">
               La meilleure farine instantanée pour votre bouillie. 
               Produit 100% togolais, nutritif et délicieux.
@@ -111,7 +114,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-12 border-t pt-8 text-center">
           <p className="text-sm text-gray-600">
-            © {new Date().getFullYear()} Farine De La Capitale. Tous droits réservés.
+            © {new Date().getFullYear()} Farine De La Capitale. Tous droits réservés. Designed and developed by Moses Empire
           </p>
         </div>
       </div>

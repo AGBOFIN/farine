@@ -92,7 +92,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-gray-900">Téléphone</h3>
-                        <p className="text-gray-600">+228 90 00 00 00</p>
+                        <p className="text-gray-600">+228 98954986</p>
                       </div>
                     </div>
                   </CardContent>
@@ -106,7 +106,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-gray-900">WhatsApp</h3>
-                        <p className="text-gray-600">+228 90 00 00 00</p>
+                        <p className="text-gray-600">+228 98954986</p>
                         <a
                           href={generateWhatsAppLink(whatsappMessages.info)}
                           target="_blank"
@@ -142,7 +142,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-gray-900">Email</h3>
-                        <p className="text-gray-600">contact@farinedelacapitale.tg</p>
+                        <p className="text-gray-600">farinedelacapitale@gmail.com</p>
                       </div>
                     </div>
                   </CardContent>
@@ -278,7 +278,7 @@ export default function ContactPage() {
               Découvrez nos vidéos et recettes sur notre compte TikTok
             </p>
             <a
-              href="https://www.tiktok.com/@farinedelacapitale"
+              href="https://www.tiktok.com/@laety340?_r=1&_t=ZN-98T9wPRmyTG"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-lg bg-gray-900 px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-gray-800"
@@ -286,7 +286,7 @@ export default function ContactPage() {
               <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
               </svg>
-              @farinedelacapitale
+              @laety340
             </a>
           </motion.div>
         </div>
