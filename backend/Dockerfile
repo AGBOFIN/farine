@@ -31,14 +31,12 @@ RUN chown -R www-data:www-data /var/www/html \
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Generate application key
-RUN php artisan key:generate
-
-# Run database migrations (optional - comment out if not needed)
-# RUN php artisan migrate --force
+# Copy entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Expose port 80
 EXPOSE 80
 
-# Start Apache
-CMD ["apache2-foreground"]
+# Run entrypoint script
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
