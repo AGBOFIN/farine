@@ -8,10 +8,14 @@ mkdir -p storage/framework/cache/data \
          storage/framework/sessions \
          storage/framework/views \
          storage/app/public \
+         storage/logs \
          bootstrap/cache
 
+# Create log file if it doesn't exist
+touch storage/logs/laravel.log
+
 # Set permissions
-chmod -R 777 storage bootstrap/cache
+chmod -R 775 storage bootstrap/cache
 chown -R www-data:www-data storage bootstrap/cache
 
 # Copy .env.example to .env if .env doesn't exist
@@ -19,6 +23,9 @@ if [ ! -f .env ]; then
     cp .env.example .env
     echo "Created .env from .env.example"
 fi
+
+# Set LOG_CHANNEL to stderr for Docker environments
+sed -i 's/^LOG_CHANNEL=.*/LOG_CHANNEL=stderr/' .env
 
 # Generate APP_KEY if not set
 if ! grep -q "^APP_KEY=base64:" .env; then
