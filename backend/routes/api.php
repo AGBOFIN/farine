@@ -35,12 +35,17 @@ Route::middleware('api')->group(function () {
     // Temporary route to force database seeding
     Route::get('/force-seed-db-now', function () {
         try {
-            Artisan::call('migrate', ['--force' => true]);
-            Artisan::call('db:seed', ['--force' => true]);
+            // Forcer SQLite à la volée
+            \Illuminate\Support\Facades\Config::set('database.default', 'sqlite');
+            
+            \Illuminate\Support\Facades\Artisan::call('config:clear');
+            \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+            \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+            
             return response()->json([
                 'status' => 'success',
-                'message' => 'Database migrated and seeded successfully!',
-                'output' => Artisan::output()
+                'message' => 'Base SQLite migrée et alimentée !',
+                'output' => \Illuminate\Support\Facades\Artisan::output()
             ]);
         } catch (\Exception $e) {
             return response()->json([
