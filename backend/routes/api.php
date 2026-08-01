@@ -31,4 +31,22 @@ Route::middleware('api')->group(function () {
         Route::get('/user', [AuthController::class, 'user']);
         Route::post('/logout', [AuthController::class, 'logout']);
     });
+
+    // Temporary admin route to force database initialization
+    Route::get('/setup-database', function () {
+        try {
+            \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--seed' => true, '--force' => true]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Database reset and seeded successfully',
+                'output' => \Illuminate\Support\Facades\Artisan::output()
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Database setup failed',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    });
 });

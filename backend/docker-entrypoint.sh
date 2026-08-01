@@ -44,18 +44,30 @@ if ! grep -q "^APP_KEY=base64:" .env; then
 fi
 
 # Run database migrations
-php artisan migrate --force
-echo "Database migrations completed"
+echo "Running database migrations..."
+php artisan migrate --force || {
+    echo "ERROR: Database migrations failed"
+    exit 1
+}
+echo "Database migrations completed successfully"
 
-# Run database seeders to create admin account
+# Run database seeders to create admin account and initial data
 echo "Running database seeders..."
-php artisan db:seed --force
-echo "Database seeders completed"
+php artisan db:seed --force || {
+    echo "ERROR: Database seeders failed"
+    exit 1
+}
+echo "Database seeders completed successfully"
 
 # Verify seeder ran successfully
+echo "Verifying database seeding..."
 INGREDIENT_COUNT=$(php artisan tinker --execute="echo App\Models\Ingredient::count();" 2>/dev/null || echo "0")
 PRODUCT_COUNT=$(php artisan tinker --execute="echo App\Models\Product::count();" 2>/dev/null || echo "0")
 echo "Database verification: $INGREDIENT_COUNT ingredients, $PRODUCT_COUNT products"
+
+if [ "$INGREDIENT_COUNT" -eq 0 ] || [ "$PRODUCT_COUNT" -eq 0 ]; then
+    echo "WARNING: Database seeding may have failed - missing data detected"
+fi
 
 # Clear configuration, route, and view caches
 php artisan config:clear
