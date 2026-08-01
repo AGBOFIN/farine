@@ -18,14 +18,31 @@ touch storage/logs/laravel.log
 chmod -R 775 storage bootstrap/cache
 chown -R www-data:www-data storage bootstrap/cache
 
-# Copy .env.example to .env if .env doesn't exist
+# Create .env file if it doesn't exist
 if [ ! -f .env ]; then
-    cp .env.example .env
-    echo "Created .env from .env.example"
-fi
+    cat > .env << 'EOF'
+APP_NAME="Farine API"
+APP_ENV=production
+APP_KEY=
+APP_DEBUG=false
+APP_URL=https://farine-backend.onrender.com
 
-# Set LOG_CHANNEL to stderr for Docker environments
-sed -i 's/^LOG_CHANNEL=.*/LOG_CHANNEL=stderr/' .env
+LOG_CHANNEL=stderr
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug
+
+DB_CONNECTION=sqlite
+DB_DATABASE=/var/www/html/database/database.sqlite
+
+BROADCAST_DRIVER=log
+CACHE_DRIVER=file
+FILESYSTEM_DISK=local
+QUEUE_CONNECTION=sync
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+EOF
+    echo "Created .env file"
+fi
 
 # Create SQLite database directory and file if they don't exist
 mkdir -p database
