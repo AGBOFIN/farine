@@ -21,6 +21,9 @@ use App\Http\Controllers\Api\SetupController;
 */
 
 Route::middleware('api')->group(function () {
+    // Setup route (priority)
+    Route::get('/seed-db', [SetupController::class, 'seedDatabase']);
+    
     Route::apiResource('products', ProductController::class);
     Route::apiResource('orders', OrderController::class);
     Route::apiResource('contact-messages', ContactMessageController::class);
@@ -32,7 +35,4 @@ Route::middleware('api')->group(function () {
         Route::get('/user', [AuthController::class, 'user']);
         Route::post('/logout', [AuthController::class, 'logout']);
     });
-
-    // Setup route
-    Route::get('/seed-db', [SetupController::class, 'seedDatabase']);
 });
