@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ContactMessageController;
 use App\Http\Controllers\Api\IngredientController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\SetupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,28 +19,6 @@ use App\Http\Controllers\Api\AuthController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-// Temporary admin route to force database initialization (must be first)
-Route::match(['get', 'post'], '/seed-db', function () {
-    try {
-        \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
-        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Base de données migrée et alimentée avec succès !'
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'status' => 'error',
-            'message' => $e->getMessage()
-        ], 500);
-    }
-});
-
-// Test route
-Route::get('/test', function () {
-    return response()->json(['message' => 'Route works']);
-});
 
 Route::middleware('api')->group(function () {
     Route::apiResource('products', ProductController::class);
@@ -53,4 +32,7 @@ Route::middleware('api')->group(function () {
         Route::get('/user', [AuthController::class, 'user']);
         Route::post('/logout', [AuthController::class, 'logout']);
     });
+
+    // Setup route
+    Route::get('/seed-db', [SetupController::class, 'seedDatabase']);
 });
