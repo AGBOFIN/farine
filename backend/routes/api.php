@@ -7,7 +7,6 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ContactMessageController;
 use App\Http\Controllers\Api\IngredientController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\SetupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +18,6 @@ use App\Http\Controllers\Api\SetupController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-// Setup route (outside middleware group for direct access)
-Route::get('/seed-db', [SetupController::class, 'seedDatabase']);
 
 Route::middleware('api')->group(function () {
     Route::apiResource('products', ProductController::class);
