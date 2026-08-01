@@ -19,21 +19,7 @@ use App\Http\Controllers\Api\AuthController;
 |
 */
 
-Route::middleware('api')->group(function () {
-    Route::apiResource('products', ProductController::class);
-    Route::apiResource('orders', OrderController::class);
-    Route::apiResource('contact-messages', ContactMessageController::class);
-    Route::apiResource('ingredients', IngredientController::class);
-    
-    // Auth routes
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::get('/user', [AuthController::class, 'user']);
-        Route::post('/logout', [AuthController::class, 'logout']);
-    });
-});
-
-// Temporary admin route to force database initialization (outside middleware group)
+// Temporary admin route to force database initialization (must be first)
 Route::get('/seed-db', function () {
     try {
         \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
@@ -48,4 +34,18 @@ Route::get('/seed-db', function () {
             'message' => $e->getMessage()
         ], 500);
     }
+});
+
+Route::middleware('api')->group(function () {
+    Route::apiResource('products', ProductController::class);
+    Route::apiResource('orders', OrderController::class);
+    Route::apiResource('contact-messages', ContactMessageController::class);
+    Route::apiResource('ingredients', IngredientController::class);
+    
+    // Auth routes
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/user', [AuthController::class, 'user']);
+        Route::post('/logout', [AuthController::class, 'logout']);
+    });
 });
