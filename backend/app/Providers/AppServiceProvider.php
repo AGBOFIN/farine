@@ -19,6 +19,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Force SQLite connection and ensure database file exists
+        config(['database.default' => 'sqlite']);
+        
+        $dbPath = database_path('database.sqlite');
+        if (!file_exists($dbPath)) {
+            @touch($dbPath);
+        }
     }
 }
