@@ -32,7 +32,7 @@ LOG_DEPRECATIONS_CHANNEL=null
 LOG_LEVEL=debug
 
 DB_CONNECTION=sqlite
-DB_DATABASE=/var/www/html/database/database.sqlite
+DB_DATABASE=database/database.sqlite
 
 BROADCAST_DRIVER=log
 CACHE_DRIVER=file
@@ -46,7 +46,7 @@ fi
 
 # Force SQLite configuration even if .env already exists
 sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env
-sed -i 's|^DB_DATABASE=.*|DB_DATABASE=/var/www/html/database/database.sqlite|' .env
+sed -i 's|^DB_DATABASE=.*|DB_DATABASE=database/database.sqlite|' .env
 
 # Create SQLite database directory and file if they don't exist
 mkdir -p database

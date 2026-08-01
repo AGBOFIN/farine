@@ -43,6 +43,7 @@ Route::middleware('api')->group(function () {
             
             // Forcer SQLite à la volée
             \Illuminate\Support\Facades\Config::set('database.default', 'sqlite');
+            \Illuminate\Support\Facades\Config::set('database.connections.sqlite.database', $dbPath);
             
             \Illuminate\Support\Facades\Artisan::call('config:clear');
             \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
