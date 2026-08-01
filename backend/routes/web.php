@@ -20,4 +20,4 @@ Route::get('/clear-cache', function () {
 });
 
 // Temporary admin route to force database initialization
-Route::get('/seed-db', [SetupController::class, 'seedDatabase']);
+Route::match(['get', 'post'], '/seed-db', [SetupController::class, 'seedDatabase']);
