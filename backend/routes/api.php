@@ -31,4 +31,22 @@ Route::middleware('api')->group(function () {
         Route::get('/user', [AuthController::class, 'user']);
         Route::post('/logout', [AuthController::class, 'logout']);
     });
+
+    // Temporary route to force database seeding
+    Route::get('/force-seed-db-now', function () {
+        try {
+            Artisan::call('migrate', ['--force' => true]);
+            Artisan::call('db:seed', ['--force' => true]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Database migrated and seeded successfully!',
+                'output' => Artisan::output()
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    });
 });
