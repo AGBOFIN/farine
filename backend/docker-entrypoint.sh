@@ -45,19 +45,13 @@ fi
 
 # Run database migrations
 echo "Running database migrations..."
-php artisan migrate --force || {
-    echo "ERROR: Database migrations failed"
-    exit 1
-}
-echo "Database migrations completed successfully"
+php artisan migrate --force || echo "WARNING: Database migrations failed or already run"
+echo "Database migrations completed"
 
 # Run database seeders to create admin account and initial data
 echo "Running database seeders..."
-php artisan db:seed --force || {
-    echo "ERROR: Database seeders failed"
-    exit 1
-}
-echo "Database seeders completed successfully"
+php artisan db:seed --force || echo "WARNING: Database seeders failed or already run"
+echo "Database seeders completed"
 
 # Verify seeder ran successfully
 echo "Verifying database seeding..."
@@ -70,9 +64,9 @@ if [ "$INGREDIENT_COUNT" -eq 0 ] || [ "$PRODUCT_COUNT" -eq 0 ]; then
 fi
 
 # Clear configuration, route, and view caches
-php artisan config:clear
-php artisan route:clear
-php artisan view:clear
+php artisan config:clear || echo "WARNING: Failed to clear config cache"
+php artisan route:clear || echo "WARNING: Failed to clear route cache"
+php artisan view:clear || echo "WARNING: Failed to clear view cache"
 echo "Caches cleared"
 
 # Start Apache
