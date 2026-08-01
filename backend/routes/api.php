@@ -35,17 +35,28 @@ Route::middleware('api')->group(function () {
     // Temporary route to force database seeding
     Route::get('/force-seed-db-now', function () {
         try {
+            // S'assurer que le fichier sqlite existe
+            $dbPath = database_path('database.sqlite');
+            if (!file_exists($dbPath)) {
+                touch($dbPath);
+            }
+            
             // Forcer SQLite à la volée
             \Illuminate\Support\Facades\Config::set('database.default', 'sqlite');
             
             \Illuminate\Support\Facades\Artisan::call('config:clear');
-            \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+            \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
             \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+            
+            $ingredients = \App\Models\Ingredient::all();
+            $products = \App\Models\Product::all();
             
             return response()->json([
                 'status' => 'success',
-                'message' => 'Base SQLite migrée et alimentée !',
-                'output' => \Illuminate\Support\Facades\Artisan::output()
+                'ingredients_count' => count($ingredients),
+                'products_count' => count($products),
+                'ingredients' => $ingredients,
+                'products' => $products
             ]);
         } catch (\Exception $e) {
             return response()->json([
