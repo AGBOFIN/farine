@@ -15,8 +15,8 @@ mkdir -p storage/framework/cache/data \
 touch storage/logs/laravel.log
 
 # Set permissions
-chmod -R 775 storage bootstrap/cache
-chown -R www-data:www-data storage bootstrap/cache
+chmod -R 775 storage bootstrap/cache database
+chown -R www-data:www-data storage bootstrap/cache database
 
 # Create .env file if it doesn't exist
 if [ ! -f .env ]; then
@@ -46,16 +46,19 @@ fi
 
 # Force SQLite configuration even if .env already exists
 sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env
-sed -i 's|^DB_DATABASE=.*|DB_DATABASE=database/database.sqlite|' .env
+sed -i 's|^DB_DATABASE=.*|DB_DATABASE=/var/www/html/database/database.sqlite|' .env
 
 # Create SQLite database directory and file if they don't exist
 mkdir -p database
 if [ ! -f database/database.sqlite ]; then
     touch database/database.sqlite
-    chmod 664 database/database.sqlite
+    chmod 666 database/database.sqlite
+    chown www-data:www-data database/database.sqlite
     echo "Created SQLite database file"
 else
-    echo "SQLite database file already exists"
+    chmod 666 database/database.sqlite
+    chown www-data:www-data database/database.sqlite
+    echo "SQLite database file already exists, updating permissions"
 fi
 
 # Generate APP_KEY if not set
