@@ -20,10 +20,10 @@ use App\Http\Controllers\Api\SetupController;
 |
 */
 
+// Setup route (outside middleware group for direct access)
+Route::get('/seed-db', [SetupController::class, 'seedDatabase']);
+
 Route::middleware('api')->group(function () {
-    // Setup route (priority)
-    Route::get('/seed-db', [SetupController::class, 'seedDatabase']);
-    
     Route::apiResource('products', ProductController::class);
     Route::apiResource('orders', OrderController::class);
     Route::apiResource('contact-messages', ContactMessageController::class);
