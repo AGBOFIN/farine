@@ -33,19 +33,18 @@ Route::middleware('api')->group(function () {
     });
 
     // Temporary admin route to force database initialization
-    Route::get('/setup-database', function () {
+    Route::get('/seed-db', function () {
         try {
-            \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--seed' => true, '--force' => true]);
+            \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
+            \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
             return response()->json([
-                'success' => true,
-                'message' => 'Database reset and seeded successfully',
-                'output' => \Illuminate\Support\Facades\Artisan::output()
+                'status' => 'success',
+                'message' => 'Base de données migrée et alimentée avec succès !'
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => false,
-                'message' => 'Database setup failed',
-                'error' => $e->getMessage()
+                'status' => 'error',
+                'message' => $e->getMessage()
             ], 500);
         }
     });
