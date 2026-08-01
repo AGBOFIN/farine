@@ -36,7 +36,7 @@ Route::middleware('api')->group(function () {
     Route::get('/force-seed-db-now', function () {
         try {
             // S'assurer que le fichier sqlite existe
-            $dbPath = database_path('database.sqlite');
+            $dbPath = '/var/www/html/database/database.sqlite';
             if (!file_exists($dbPath)) {
                 touch($dbPath);
             }
