@@ -44,6 +44,10 @@ EOF
     echo "Created .env file"
 fi
 
+# Force SQLite configuration even if .env already exists
+sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env
+sed -i 's|^DB_DATABASE=.*|DB_DATABASE=/var/www/html/database/database.sqlite|' .env
+
 # Create SQLite database directory and file if they don't exist
 mkdir -p database
 if [ ! -f database/database.sqlite ]; then
