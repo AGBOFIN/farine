@@ -20,7 +20,7 @@ use App\Http\Controllers\Api\AuthController;
 */
 
 // Temporary admin route to force database initialization (must be first)
-Route::get('/seed-db', function () {
+Route::match(['get', 'post'], '/seed-db', function () {
     try {
         \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true]);
         \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
@@ -34,6 +34,11 @@ Route::get('/seed-db', function () {
             'message' => $e->getMessage()
         ], 500);
     }
+});
+
+// Test route
+Route::get('/test', function () {
+    return response()->json(['message' => 'Route works']);
 });
 
 Route::middleware('api')->group(function () {
